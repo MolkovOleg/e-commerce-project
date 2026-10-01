@@ -1,0 +1,21 @@
+nameOverride: auth-service
+fullnameOverride: ecommerce-auth-service
+
+image:
+  repository: ecommerce-auth-service
+  tag: latest
+
+service:
+  port: 8081
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+
+env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: "k8s"

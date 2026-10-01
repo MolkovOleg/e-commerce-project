@@ -1,0 +1,21 @@
+nameOverride: notification-service
+fullnameOverride: ecommerce-notification-service
+
+image:
+  repository: ecommerce-notification-service
+  tag: latest
+
+service:
+  port: 8087
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+
+env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: "k8s"

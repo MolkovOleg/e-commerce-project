@@ -1,0 +1,26 @@
+# Gradle / Build
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*iws
+*.ipr
+out/
+.vscode/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Logs / Secrets
+*.log
+.secrets/
+*.env
+
+# Local notes
+learning_plan.md

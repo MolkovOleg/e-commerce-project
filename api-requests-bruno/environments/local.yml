@@ -1,0 +1,23 @@
+name: local
+variables:
+  - name: auth-service
+    value: http://127.0.0.1:8081
+    description: ""
+  - name: inventory-service
+    value: http://127.0.0.1:8085
+    description: ""
+  - name: notification-service
+    value: http://127.0.0.1:8087
+    description: ""
+  - name: order-service
+    value: http://127.0.0.1:8086
+    description: ""
+  - name: product-service
+    value: http://127.0.0.1:8084
+    description: ""
+  - name: user-service
+    value: http://127.0.0.1:8083
+    description: ""
+  - name: api-gateway
+    value: http://127.0.0.1:8082
+    description: ""

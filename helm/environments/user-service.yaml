@@ -1,0 +1,21 @@
+nameOverride: user-service
+fullnameOverride: ecommerce-user-service
+
+image:
+  repository: ecommerce-user-service
+  tag: latest
+
+service:
+  port: 8083
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+
+env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: "k8s"

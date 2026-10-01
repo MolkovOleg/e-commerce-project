@@ -1,0 +1,21 @@
+nameOverride: api-gateway
+fullnameOverride: ecommerce-api-gateway
+
+image:
+  repository: ecommerce-api-gateway
+  tag: latest
+
+service:
+  port: 8082
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+
+env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: "k8s"

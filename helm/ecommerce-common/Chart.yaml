@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ecommerce-common
+description: Универсальный Helm-чарт для микросервисов ecommerce
+type: application
+version: 0.1.0
+appVersion: "0.0.1-SNAPSHOT"
