@@ -1,0 +1,22 @@
+info:
+  name: RefreshToken
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{auth-service}}/api/v1/auth/refresh"
+  body:
+    type: json
+    data: |-
+      {
+        "refreshToken": "dfc72a6f-442a-4ac8-8bb6-3635bcbf1683"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
