@@ -2,21 +2,51 @@
 springBoot = "3.3.4"
 springCloud = "2023.0.3"
 springDoc = "2.6.0"
-
+avro = "1.11.4"
+avroPlugin = "1.9.1"
+confluent = "7.7.0"
+jjwt = "0.12.6"
 
 [libraries]
+# Reactive Redis
+spring-boot-starter-data-redis-reactive = { module = "org.springframework.boot:spring-boot-starter-data-redis-reactive"}
+
+# Java JWT
+jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
+jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
+jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
+
+# Database & Migrations
+postgresql = { module = "org.postgresql:postgresql" }
+flyway-core = { module = "org.flywaydb:flyway-core" }
+flyway-database-postgresql = { module = "org.flywaydb:flyway-database-postgresql" }
+
+# Spring Starters
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+
+# Confluent Kafka Avro Serializer
+kafka-avro-serializer = { module = "io.confluent:kafka-avro-serializer", version.ref = "confluent" }
+
+# Spring Kafka
+spring-kafka = { module = "org.springframework.kafka:spring-kafka" }
+
+# Apache Avro
+avro = { module = "org.apache.avro:avro", version.ref = "avro" }
+
 # Spring Cloud BOM и Gateway
-spring-cloud-dependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloud"}
-spring-cloud-starter-gateway = { module = "org.springframework.cloud:spring-cloud-starter-gateway"}
+spring-cloud-dependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloud" }
+spring-cloud-starter-gateway = { module = "org.springframework.cloud:spring-cloud-starter-gateway" }
 
 # Swagger / OpenAPI
-springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springDoc"}
+springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springDoc" }
 
 # Spring Boot Starters
-spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web"}
-spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator"}
-spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation"}
-spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test"}
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+avro = {id = "com.github.davidmc24.gradle.plugin.avro", version.ref = "avroPlugin" }

@@ -1,6 +1,7 @@
 plugins {
     java
     alias(libs.plugins.spring.boot) apply false
+    alias(libs.plugins.avro) apply false
 }
 
 allprojects {
@@ -9,6 +10,11 @@ allprojects {
 
     repositories {
         mavenCentral()
+
+        // Добавление репозитория Confluent для Avro сериализации и Schema Registry клиентов
+        maven {
+            url = uri("https://packages.confluent.io/maven/")
+        }
     }
 }
 

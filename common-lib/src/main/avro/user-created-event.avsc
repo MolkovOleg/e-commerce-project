@@ -1,0 +1,39 @@
+{
+  "type": "record",
+  "name": "UserCreatedEvent",
+  "namespace": "com.ecommerce.common.event",
+  "doc": "Событие успешной регистрации нового пользователя в auth-service",
+  "fields": [
+    {
+      "name": "eventId",
+      "type": "string",
+      "doc": "Уникальный ID события (UUID) для обеспечения идемпотентности потребителей"
+    },
+    {
+      "name": "userId",
+      "type": "string",
+      "doc": "Идентификатор созданного пользователя (UUID)"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "doc": "Email пользователя"
+    },
+    {
+      "name": "roles",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "doc": "Список назначенных ролей (типа ROLE_...)"
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Временная метка создания события (миллисекунды)"
+    }
+  ]
+}
