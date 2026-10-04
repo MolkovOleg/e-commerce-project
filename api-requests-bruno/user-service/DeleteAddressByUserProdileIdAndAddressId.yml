@@ -1,0 +1,23 @@
+info:
+  name: DeleteAddressByUserProdileIdAndAddressId
+  type: http
+  seq: 7
+
+http:
+  method: DELETE
+  url: "{{user-service}}/api/v1/users/:profileId/addresses/:addressId"
+  params:
+    - name: profileId
+      value: c2d96314-ecec-4136-a920-ea0e5bd75a24
+      type: path
+    - name: addressId
+      value: 3e6748c5-9b67-43da-b92e-6b10dc48daae
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,32 @@
+info:
+  name: AddAddressToUserProfileById
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{user-service}}/api/v1/users/:profileId/addresses"
+  params:
+    - name: profileId
+      value: c2d96314-ecec-4136-a920-ea0e5bd75a24
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "country": "Russia",
+        "city": "Moscow",
+        "street": "Lermontova",
+        "building": "333",
+        "apartment": "77",
+        "zipCode": "141777",
+        "isDefault": false
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

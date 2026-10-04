@@ -5,6 +5,33 @@ spring:
   application:
     name: user-service
 
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/user_db
+    username: postgres
+    password: postgres_password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  kafka:
+    bootstrap-servers: 127.0.0.1:19092
+    consumer:
+      group-id: user-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        schema.registry.url: http://127.0.0.1:18081
+        specific.avro.reader: true
+
 management:
   endpoints:
     web:
