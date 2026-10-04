@@ -5,6 +5,42 @@ spring:
   application:
     name: api-gateway
 
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+
+  cloud:
+    gateway:
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@userKeyResolver}"
+      routes:
+        # auth-service роутинг
+        - id: auth-service
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/api/v1/auth/**
+
+        # user-service роутинг
+        - id: user-service
+          uri: http://127.0.0.1:8083
+          predicates:
+            - Path=/api/v1/users/**
+
+        # product-service роутинг
+        - id: product-service
+          uri: http://127.0.0.1:8084
+          predicates:
+            - Path=/api/v1/products/**
+
+
+jwt:
+  secret-key: kgy0iUhUm9BkRXwFrw8ksMpP5TmT3tE/o92K2Kjj6ys=
+
 management:
   endpoints:
     web:
