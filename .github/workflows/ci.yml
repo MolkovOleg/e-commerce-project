@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build & Varify All Modules
+    name: Build & Verify All Modules
     runs-on: ubuntu-latest
 
     steps:

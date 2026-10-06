@@ -1,3 +1,5 @@
+import org.gradle.api.artifacts.VersionCatalogsExtension
+
 plugins {
     java
     alias(libs.plugins.spring.boot) apply false
@@ -18,6 +20,10 @@ allprojects {
     }
 }
 
+// Получение каталога версий и ссылку на BOM
+val catalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+val springBootBom = catalog.findLibrary("spring-boot-dependencies").get()
+
 subprojects {
     apply(plugin = "java")
 
@@ -28,7 +34,8 @@ subprojects {
     }
 
     dependencies {
-        val bom = platform("org.springframework.boot:spring-boot-dependencies:3.3.4")
+
+        val bom = platform(springBootBom)
 
         // Подключение BOM
         implementation(bom)
