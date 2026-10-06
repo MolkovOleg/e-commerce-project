@@ -5,6 +5,21 @@ spring:
   application:
     name: product-service
 
+  data:
+    mongodb:
+      uri: mongodb://mongo:mongo_password@127.0.0.1:27017/product_db?authSource=admin
+      auto-index-creation: true
+
+    redis:
+      host: 127.0.0.1
+      port: 6379
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000
+      cache-null-values: false
+
 management:
   endpoints:
     web:

@@ -8,8 +8,16 @@ confluent = "7.7.0"
 jjwt = "0.12.6"
 
 [libraries]
+# Spring Data Mongo DB
+spring-boot-starter-data-mongodb = { module = "org.springframework.boot:spring-boot-starter-data-mongodb" }
+
+# Spring Cache + Redis
+spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
+spring-boot-starter-cache = { module = "org.springframework.boot:spring-boot-starter-cache" }
+
+
 # Reactive Redis
-spring-boot-starter-data-redis-reactive = { module = "org.springframework.boot:spring-boot-starter-data-redis-reactive"}
+spring-boot-starter-data-redis-reactive = { module = "org.springframework.boot:spring-boot-starter-data-redis-reactive" }
 
 # Java JWT
 jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }

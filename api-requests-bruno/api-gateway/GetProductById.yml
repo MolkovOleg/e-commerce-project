@@ -1,0 +1,22 @@
+info:
+  name: GetProductById
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{api-gateway}}/api/v1/products/:id"
+  params:
+    - name: id
+      value: 6ac4eaeb002fce7cd544eb8a
+      type: path
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiYzJkOTYzMTQtZWNlYy00MTM2LWE5MjAtZWEwZTViZDc1YTI0Iiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkxMjkxNzgyLCJleHAiOjE3OTEyOTI2ODJ9.0y9m0Emw3YahSfKQ6IvT8ybr7Z5CKnkR_yov88Mcqfk
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

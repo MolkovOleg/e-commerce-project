@@ -1,0 +1,32 @@
+info:
+  name: CreateNewProduct
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{product-service}}/api/v1/products"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Apple MacBook Pro 16",
+          "description": "Мощный ноутбук на чипе M3 Max для профессионалов",
+          "category": "LAPTOPS",
+          "price": 349990.00,
+          "attributes": {
+            "ram": "36GB",
+            "ssd": "1TB",
+            "color": "Space Black",
+            "cpu": "M3 Max"
+      },
+        "images": ["https://example.com/macbook1.jpg"]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

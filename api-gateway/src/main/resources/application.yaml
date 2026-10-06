@@ -37,7 +37,6 @@ spring:
           predicates:
             - Path=/api/v1/products/**
 
-
 jwt:
   secret-key: kgy0iUhUm9BkRXwFrw8ksMpP5TmT3tE/o92K2Kjj6ys=
 

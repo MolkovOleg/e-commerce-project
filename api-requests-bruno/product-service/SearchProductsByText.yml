@@ -1,0 +1,20 @@
+info:
+  name: SearchProductsByText
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{product-service}}/api/v1/products/search?text=MacBook"
+  params:
+    - name: text
+      value: MacBook
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

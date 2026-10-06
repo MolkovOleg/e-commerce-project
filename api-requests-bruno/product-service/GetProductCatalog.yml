@@ -1,0 +1,26 @@
+info:
+  name: GetProductCatalog
+  type: http
+  seq: 6
+
+http:
+  method: GET
+  url: "{{product-service}}/api/v1/products?category=LAPTOPS&minPrice=200000&maxPrice=400000"
+  params:
+    - name: category
+      value: LAPTOPS
+      type: query
+    - name: minPrice
+      value: "200000"
+      type: query
+    - name: maxPrice
+      value: "400000"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

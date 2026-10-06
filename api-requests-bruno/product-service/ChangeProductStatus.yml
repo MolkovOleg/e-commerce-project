@@ -1,0 +1,23 @@
+info:
+  name: ChangeProductStatus
+  type: http
+  seq: 4
+
+http:
+  method: PATCH
+  url: "{{product-service}}/api/v1/products/:id/status?status=PUBLISHED"
+  params:
+    - name: status
+      value: PUBLISHED
+      type: query
+    - name: id
+      value: 6ac4eaeb002fce7cd544eb8a
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
