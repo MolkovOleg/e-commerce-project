@@ -4,10 +4,8 @@ services:
   postgres:
     image: postgres:15-alpine
     container_name: ecommerce-postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres_password
-      POSTGRES_DB: postgres
+    env_file:
+      - .secrets/dev/.env
     ports:
       - "5432:5432"
     volumes:
@@ -23,9 +21,8 @@ services:
   mongo:
     image: mongo:7.0
     container_name: ecommerce-mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: mongo_password
+    env_file:
+      - .secrets/dev/.env
     ports:
       - "27017:27017"
     volumes:
@@ -68,12 +65,19 @@ services:
       - "9644:9644" # Admin API
     volumes:
       - redpanda_data:/var/lib/redpanda/data
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy:.*true'"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   redpanda-kafka-console:
     image: docker.redpanda.com/redpandadata/console:v2.6.0
     container_name: ecommerce-redpanda-kafka-console
     depends_on:
-      - redpanda-kafka
+      redpanda-kafka:
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:
