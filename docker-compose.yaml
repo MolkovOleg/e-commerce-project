@@ -114,7 +114,7 @@ services:
       SPRING_DATA_REDIS_HOST: redis
       AUTH_SERVICE_URL: http://auth-service:8081
       USER_SERVICE_URL: http://user-service:8083
-      PRODUCTS_SERVICE_URL: http://product-service:8084
+      PRODUCT_SERVICE_URL: http://product-service:8084
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
 
   auth-service:
@@ -136,7 +136,7 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
+      SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
 
   user-service:
@@ -158,7 +158,7 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
+      SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
 
   product-service:
     build:
