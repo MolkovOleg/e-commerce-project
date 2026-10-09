@@ -1,4 +1,7 @@
 services:
+  # ------------------------------------------------------------------------
+  # Инфраструктура платформы
+  # ------------------------------------------------------------------------
 
   # PostgreSQL (auth, user, inventory, order) микросервисы
   postgres:
@@ -84,6 +87,133 @@ services:
       KAFKA_BROKERS: redpanda-kafka:9092
       KAFKA_SCHEMAREGISTRY_ENABLED: "true"
       KAFKA_SCHEMAREGISTRY_URLS: http://redpanda-kafka:8081
+
+  # ------------------------------------------------------------------------
+  # Микросервисы платформы
+  # ------------------------------------------------------------------------
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: ecommerce-api-gateway
+    ports:
+      - "8082:8082"
+    depends_on:
+      redis:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      user-service:
+        condition: service_started
+      product-service:
+        condition: service_started
+    env_file:
+      - .secrets/dev/.env
+    environment:
+      SPRING_DATA_REDIS_HOST: redis
+      AUTH_SERVICE_URL: http://auth-service:8081
+      USER_SERVICE_URL: http://user-service:8083
+      PRODUCTS_SERVICE_URL: http://product-service:8084
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-auth-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redpanda-kafka:
+        condition: service_healthy
+    env_file:
+      - .secrets/dev/.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/auth_db
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-user-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redpanda-kafka:
+        condition: service_healthy
+    env_file:
+      - .secrets/dev/.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/user_db
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
+
+  product-service:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-product-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .secrets/dev/.env
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/product_db?authSource=admin
+      SPRING_DATA_REDIS_HOST: redis
+
+  inventory-service:
+    build:
+      context: ./inventory-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-inventory-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-order-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redpanda-kafka:
+        condition: service_healthy
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-notification-service
+    ports:
+      - "8087:8087"
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redpanda-kafka:
+        condition: service_healthy
 
 volumes:
   postgres_data:

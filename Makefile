@@ -1,10 +1,11 @@
-.PHONY: help dev-up dev-down dev-restart dev-clean dev-logs test build k3d-up k3d-down inject-secrets
+.PHONY: help dev-up dev-infra dev-down dev-restart dev-clean dev-logs test build k3d-up k3d-down inject-secrets
 
 help:
 	@echo "Доступные команды платформы e-commerce:"
-	@echo " make dev-up		- Поднять всю инфраструктуру (Postgres, Mongo, Redis, Kafka)"
-	@echo " make dev-down		- Остановить инфраструктуру"
-	@echo " make dev-clean		- Остановить инфраструктуру и очистить тома (Volumes)"
+	@echo " make dev-up		- Собрать JAR и запустить весь проект"
+	@echo " make dev-infra		- Запустить только инфраструктуру (Postgres, Mongo, Redis, Kafka)"
+	@echo " make dev-down		- Остановить весь проект"
+	@echo " make dev-clean		- Остановить проект и очистить тома (Volumes)"
 	@echo " make dev-logs		- Смотреть логи всех контейнеров в реальном времени"
 	@echo " make build		- Собрать все Java-модули через Gradle"
 	@echo " make test		- Запустить все тесты через Gradle"
@@ -14,12 +15,18 @@ help:
 
 
 dev-up:
-	@echo "Сборка JAR-файлов сервисов..."
+	@echo "Сборка JAR-файлов сервисов через Gradle..."
 	./gradlew bootJar -x test
-	@echo "Запуск инфраструктуры с ожиданием готовности (healthcheck)..."
-	docker compose up -d --wait
-	@echo "Все сервисы инфраструктуры успешно запущены и готовы к работе"
-	docker compose ps
+	@echo "Запуск всего проекта с ожиданием готовности (healthcheck)..."
+	docker compose --env-file .secrets/dev/.env up -d --build --wait
+	@echo "Все сервисы успешно запущены и готовы к работе"
+	docker compose --env-file .secrets/dev/.env ps
+
+dev-infra:
+	@echo "Запуск только инфраструктуру (Postgres, Mongo, Redis, Kafka) с ожиданием готовности..."
+	docker compose --env-file .secrets/dev/.env up -d --wait postgres mongo redis redpanda-kafka redpanda-kafka-console
+	@echo "Инфраструктура готова!"
+	docker compose --env-file .secrets/dev/.env ps
 
 dev-down:
 	@echo "Остановка инфраструктуры..."
