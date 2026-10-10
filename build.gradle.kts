@@ -1,4 +1,5 @@
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.testing.jacoco.tasks.JacocoReport
 
 plugins {
     java
@@ -26,12 +27,29 @@ val springBootBom = catalog.findLibrary("spring-boot-dependencies").get()
 
 subprojects {
     apply(plugin = "java")
+    apply(plugin = "checkstyle")
+    apply(plugin = "jacoco")
 
+    // Настройка версии Java в проекте
     configure<JavaPluginExtension> {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(21))
         }
     }
+
+    // Настройка checkstyle
+    configure<CheckstyleExtension> {
+        toolVersion = "10.18.1"
+        isIgnoreFailures = false
+        maxWarnings = 0
+        configFile = rootProject.file("config/checkstyle/checkstyle.xml")
+    }
+
+    // Настройка версии JaCoCo
+    configure<JacocoPluginExtension> {
+        toolVersion = "0.8.12"
+    }
+
 
     dependencies {
 
@@ -52,7 +70,22 @@ subprojects {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
+    // Запуск unit тестов
     tasks.withType<Test> {
         useJUnitPlatform()
+        finalizedBy(tasks.withType<JacocoReport>())
+    }
+
+    tasks.withType<JacocoReport> {
+        dependsOn(tasks.withType<Test>())
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+    }
+
+    tasks.withType<Checkstyle> {
+        exclude("**/build/**")
+        exclude("**/generated/**")
     }
 }

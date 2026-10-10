@@ -61,7 +61,7 @@ flowchart TD
 | MongoDB              |     `27017`     |    `27017`    | MongoDB 7.0         | Документные БД (product_db, notification_db) |
 | Redis                |     `6379`      |    `6379`     | Redis 7 Alpine         | Распределенный кэш, Token Bucket Rate Limiting, распределенные блокировки |
 | Kafka Broker         |     `9092`      |    `19092`    | Redpanda v24.1         | Высокопроизводительный C++ брокер сообщений (Kafka v2/v3 compatible) |
-| Schema Registry      |     `8061`      |    `18081`    | Confluent Compatible         | Централизованный реестр Avro-схем |
+| Schema Registry      |     `8081`      |    `18081`    | Confluent Compatible         | Централизованный реестр Avro-схем |
 
 ---
 
