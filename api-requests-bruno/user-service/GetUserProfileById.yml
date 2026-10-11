@@ -8,7 +8,7 @@ http:
   url: "{{user-service}}/api/v1/users/:profileId"
   params:
     - name: profileId
-      value: c2d96314-ecec-4136-a920-ea0e5bd75a24
+      value: bb7aee02-c47b-42fd-bd8f-624331b46186
       type: path
   auth: inherit
 

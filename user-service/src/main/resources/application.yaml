@@ -6,9 +6,9 @@ spring:
     name: user-service
 
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/user_db
-    username: postgres
-    password: postgres_password
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://127.0.0.1:5432/user_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres_password}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -22,14 +22,14 @@ spring:
     locations: classpath:db/migration
 
   kafka:
-    bootstrap-servers: 127.0.0.1:19092
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:127.0.0.1:19092}
     consumer:
       group-id: user-service-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       properties:
-        schema.registry.url: http://127.0.0.1:18081
+        schema.registry.url: ${SCHEMA_REGISTRY_URL:http://127.0.0.1:18081}
         specific.avro.reader: true
 
 management:

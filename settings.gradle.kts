@@ -1,4 +1,4 @@
-rootProject.name = "e-commerse-project"
+rootProject.name = "e-commerce-project"
 
 // Модуль с общими файлами микросервисов
 include("common-lib")

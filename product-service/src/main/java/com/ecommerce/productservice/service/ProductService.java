@@ -50,8 +50,8 @@ public class ProductService {
      */
     @Cacheable(value = "products", key = "#id")
     public ProductResponse getProductById(String id) {
-        log.info("Fetching product from MongoDB with id={}", id);
         Product product = findProductByIdOrThrow(id);
+        log.info("Fetching product from MongoDB with id={}", id);
         return mapToProductResponse(product);
     }
 
@@ -90,7 +90,7 @@ public class ProductService {
     }
 
     /**
-     * Архивация товоара с очисткой кэша
+     * Архивация товара с очисткой кэша
      */
     @CacheEvict(value = "products", key = "#id")
     public void deleteProduct(String id) {
@@ -103,7 +103,7 @@ public class ProductService {
     }
 
     /**
-     *  Публичная витрина катологов с фильтрацией и пагинацией
+     *  Публичная витрина каталогов с фильтрацией и пагинацией
      */
     public Page<ProductResponse> getPublicCatalog(
             String category,

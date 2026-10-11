@@ -43,3 +43,8 @@ spec:
           env:
             {{- toYaml .Values.env | nindent 12 }}
           {{- end}}
+          envFrom:
+            - secretRef:
+                name: ecommerce-secrets
+                optional: true
+

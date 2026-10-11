@@ -2,7 +2,11 @@ package com.ecommerce.userservice.service;
 
 import com.ecommerce.userservice.domain.UserAddress;
 import com.ecommerce.userservice.domain.UserProfile;
-import com.ecommerce.userservice.dto.*;
+import com.ecommerce.userservice.dto.AddressRequest;
+import com.ecommerce.userservice.dto.AddressResponse;
+import com.ecommerce.userservice.dto.UpdateRolesRequest;
+import com.ecommerce.userservice.dto.UpdateUserProfileRequest;
+import com.ecommerce.userservice.dto.UserProfileResponse;
 import com.ecommerce.userservice.repository.UserAddressRepository;
 import com.ecommerce.userservice.repository.UserProfileRepository;
 import lombok.RequiredArgsConstructor;

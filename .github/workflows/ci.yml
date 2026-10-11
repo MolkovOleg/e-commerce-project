@@ -2,13 +2,13 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, "fix/**", "feature/**"]
   pull_request:
     branches: [ main ]
 
 jobs:
-  build:
-    name: Build & Varify All Modules
+  verify:
+    name: Checkstyle, Tests & Image Build
     runs-on: ubuntu-latest
 
     steps:
@@ -27,5 +27,14 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew clean build
+      - name: Verify Code Style (Checkstyle)
+        run: ./gradlew checkstyleMain
+
+      - name: Run Unit Tests & JaCoCo Coverage
+        run: ./gradlew jacocoTestReport
+
+      - name: Build Application JARs
+        run: ./gradlew bootJar -x test
+
+      - name: Verify Docker Images Build
+        run: docker compose --env-file .secrets/dev/.env.example build

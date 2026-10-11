@@ -19,3 +19,7 @@ avro {
     fieldVisibility.set("PRIVATE")
     stringType.set("String")
 }
+
+tasks.withType<Checkstyle> {
+    enabled = false
+}

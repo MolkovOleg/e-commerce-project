@@ -19,8 +19,7 @@ out/
 
 # Logs / Secrets
 *.log
-.secrets/
-*.env
+.secrets/dev/.env
 
 # Local notes
 learning_plan.md
