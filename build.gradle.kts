@@ -50,7 +50,6 @@ subprojects {
         toolVersion = "0.8.12"
     }
 
-
     dependencies {
 
         val bom = platform(springBootBom)
@@ -76,11 +75,30 @@ subprojects {
         finalizedBy(tasks.withType<JacocoReport>())
     }
 
+    val jacocoExclusions = listOf(
+        "**/dto/**",
+        "**/domain/**",
+        "**/model/**",
+        "**/entity/**",
+        "**/config/**",
+        "**/*Application*",
+        "**/com/ecommerce/common/**"
+    )
+
     tasks.withType<JacocoReport> {
         dependsOn(tasks.withType<Test>())
         reports {
             xml.required.set(true)
             html.required.set(true)
+        }
+        afterEvaluate {
+            classDirectories.setFrom(
+                files(classDirectories.files.map {
+                    project.fileTree(it) {
+                        exclude (jacocoExclusions)
+                    }
+                })
+            )
         }
     }
 
