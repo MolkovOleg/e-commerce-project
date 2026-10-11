@@ -1,4 +1,4 @@
-.PHONY: help dev-up dev-infra dev-down dev-restart dev-clean dev-logs test build k3d-up k3d-down inject-secrets
+.PHONY: help dev-up dev-infra dev-down dev-restart dev-clean dev-logs test build k3d-up k3d-down k3d-deploy inject-secrets
 
 help:
 	@echo "Доступные команды платформы e-commerce:"
@@ -54,6 +54,12 @@ k3d-up:
 k3d-down:
 	@echo "Удаление k3d кластера..."
 	k3d cluster delete ecommerce-cluster
+
+k3d-deploy:
+	@echo "Деплой сервисов в k3d через Helm..."
+	for svc in auth-service user-service product-service api-gateway inventory-service order-service notification-service; do \
+    	helm upgrade --install ecommerce-$$svc helm/ecommerce-common -f helm/environments/$$svc.yaml -n ecommerce; \
+    done
 
 inject-secrets:
 	@echo "Внедрение секретов в k3d из .secrets/dev/.env..."
