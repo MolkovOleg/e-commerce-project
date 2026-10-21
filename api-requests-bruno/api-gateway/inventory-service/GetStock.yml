@@ -1,0 +1,22 @@
+info:
+  name: GetStock
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{api-gateway}}/api/v1/inventory/:stockId"
+  params:
+    - name: stockId
+      value: SKU-100
+      type: path
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiM2UxMWM4ZDEtOWNmNS00OTI5LTg4NTItOWMwNTYzYWM3YmJhIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkyNTgwNDMwLCJleHAiOjE3OTI1ODEzMzB9.iZZg9qMiOYrYsSxpF7d0g2qxOxPi-B4SvnIbNDNjw3U
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

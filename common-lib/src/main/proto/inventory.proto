@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package com.ecommerce.inventory.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.ecommerce.common.grpc.inventory";
+option java_outer_classname = "InventoryProto";
+
+// Сервис складского учета
+service InventoryService {
+  // Проверка доступного остатка для одного товара
+  rpc CheckStock (CheckStockRequest) returns (CheckStockResponse);
+
+  // Резервирование товаров под создаваемый заказ (атомарно для всех заказов)
+  rpc ReserveStock (ReserveStockRequest) returns (ReserveStockResponse);
+
+  // Компенсирующее действие SAGA: снятие брони товара при отмене/сбое заказа
+  rpc ReleaseStock (ReleaseStockRequest) returns (ReleaseStockResponse);
+}
+
+// Элемент заказа: артикул и запрашиваемое количество
+message StockItem {
+  string stockId = 1;
+  int32 quantity = 2;
+}
+
+// Запрос на проверку остатка
+message CheckStockRequest {
+  string stockId = 1;
+}
+
+// Ответ на проверку остатка
+message CheckStockResponse {
+  string stockId = 1;
+  int32 available_quantity = 2;
+  bool in_stock = 3;
+}
+
+// Запрос на резервирование товара
+message ReserveStockRequest {
+  string order_id = 1;
+  repeated StockItem items = 2;
+}
+
+// Ответ на резервирование товара
+message ReserveStockResponse {
+  string order_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// Запрос на отмену заказа
+message ReleaseStockRequest {
+  string order_id = 1;
+  repeated StockItem items = 2;
+}
+
+// Ответ на отмену заказа
+message ReleaseStockResponse {
+  string order_id = 1;
+  bool success = 2;
+  string message = 3;
+}
