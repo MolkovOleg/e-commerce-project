@@ -1,0 +1,23 @@
+info:
+  name: ReplenishStock
+  type: http
+  seq: 8
+
+http:
+  method: POST
+  url: "{{inventory-service}}/api/v1/inventory/replenish"
+  body:
+    type: json
+    data: |-
+      {
+        "stockId": "SKU-100",
+        "quantity": 100
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

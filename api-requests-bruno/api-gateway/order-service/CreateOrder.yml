@@ -1,0 +1,30 @@
+info:
+  name: CreateOrder
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{api-gateway}}/api/v1/orders"
+  body:
+    type: json
+    data: |2-
+        {
+          "items": [
+            {
+              "stockId": "SKU-100",
+              "quantity": 10,
+              "price": 150.00
+            }
+          ]
+        }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiMWVhNGNhODctYjZlMS00NmI3LTk4Y2YtOTA5NWE4MzlhODMwIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkzMTk4NzQ5LCJleHAiOjE3OTMxOTk2NDl9.BidrM-EzInnUdDNf5Wg4O70jmNztGXTvuTG0WMM4A7M
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -44,7 +44,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Успешное получение профиля по ID")
-    void testGetUserProfileById_Successful_ReturnsUserProfileResponse() {
+    void testGetUserProfileByIdSuccessfulReturnsUserProfileResponse() {
         UUID userId = UUID.randomUUID();
 
         UserProfile profile = UserProfile.builder()
@@ -66,7 +66,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Профиль с данным ID не найден")
-    void testGetUserProfileById_NotExists_ReturnsNoSuchElementException() {
+    void testGetUserProfileByIdNotExistsReturnsNoSuchElementException() {
         UUID randomId = UUID.randomUUID();
 
         when(userProfileRepository.findById(randomId)).thenReturn(Optional.empty());
@@ -78,7 +78,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Обновление данных профиля")
-    void testUpdateUserProfile_Successful_ReturnsUserProfileResponse() {
+    void testUpdateUserProfileSuccessfulReturnsUserProfileResponse() {
         UUID userId = UUID.randomUUID();
 
         UserProfile profile = UserProfile.builder()
@@ -105,7 +105,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Получение списка адресов пользователя")
-    void testGetAddresses_Successful_ReturnsAddressResponse() {
+    void testGetAddressesSuccessfulReturnsAddressResponse() {
         UUID userId = UUID.randomUUID();
 
         UserProfile profile = UserProfile.builder()
@@ -132,7 +132,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Добавление нового адреса")
-    void testAddAddress_Successful_ReturnsAddressResponse() {
+    void testAddAddressSuccessfulReturnsAddressResponse() {
         UUID userId = UUID.randomUUID();
 
         UserProfile profile = UserProfile.builder()
@@ -164,7 +164,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Удаление адреса: успешный сценарий")
-    void testDeleteAddress_Successful() {
+    void testDeleteAddressSuccessful() {
         UUID userId = UUID.randomUUID();
         UUID addressId = UUID.randomUUID();
 
@@ -185,7 +185,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Удаление чужого адреса (IDOR)")
-    void testDeleteForeignAddress_ThrowsNoSuchElementException() {
+    void testDeleteForeignAddressThrowsNoSuchElementException() {
         UUID userId = UUID.randomUUID();
         UUID addressId = UUID.randomUUID();
 
@@ -199,7 +199,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Обновление ролей пользователя")
-    void testUpdateRoles_Successful_ReturnsUserProfileResponse() {
+    void testUpdateRolesSuccessfulReturnsUserProfileResponse() {
         UUID userId = UUID.randomUUID();
 
         UserProfile profile = UserProfile.builder()

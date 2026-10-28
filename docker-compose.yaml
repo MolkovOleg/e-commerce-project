@@ -19,6 +19,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - e-commerce-project
 
   # MongoDB (каталог товаров и шаблоны уведомлений)
   mongo:
@@ -35,6 +37,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - e-commerce-project
 
   # Redis (кэширование и распределенные блокировки)
   redis:
@@ -50,6 +54,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - e-commerce-project
 
   redpanda-kafka:
     image: docker.redpanda.com/redpandadata/redpanda:v24.1.8
@@ -74,6 +80,8 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
+    networks:
+      - e-commerce-project
 
   redpanda-kafka-console:
     image: docker.redpanda.com/redpandadata/console:v2.6.0
@@ -87,6 +95,8 @@ services:
       KAFKA_BROKERS: redpanda-kafka:9092
       KAFKA_SCHEMAREGISTRY_ENABLED: "true"
       KAFKA_SCHEMAREGISTRY_URLS: http://redpanda-kafka:8081
+    networks:
+      - e-commerce-project
 
   # ------------------------------------------------------------------------
   # Микросервисы платформы
@@ -108,6 +118,10 @@ services:
         condition: service_started
       product-service:
         condition: service_started
+      inventory-service:
+        condition: service_started
+      order-service:
+        condition: service_started
     env_file:
       - .secrets/dev/.env
     environment:
@@ -115,7 +129,11 @@ services:
       AUTH_SERVICE_URL: http://auth-service:8081
       USER_SERVICE_URL: http://user-service:8083
       PRODUCT_SERVICE_URL: http://product-service:8084
+      INVENTORY_SERVICE_URL: http://inventory-service:8085
+      ORDER_SERVICE_URL: http://order-service:8086
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+    networks:
+      - e-commerce-project
 
   auth-service:
     build:
@@ -138,6 +156,8 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
       SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+    networks:
+      - e-commerce-project
 
   user-service:
     build:
@@ -159,6 +179,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
       SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
+    networks:
+      - e-commerce-project
 
   product-service:
     build:
@@ -177,6 +199,8 @@ services:
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/product_db?authSource=admin
       SPRING_DATA_REDIS_HOST: redis
+    networks:
+      - e-commerce-project
 
   inventory-service:
     build:
@@ -188,6 +212,17 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .secrets/dev/.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/inventory_db
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATA_REDIS_HOST: redis
+    networks:
+      - e-commerce-project
 
   order-service:
     build:
@@ -201,6 +236,21 @@ services:
         condition: service_healthy
       redpanda-kafka:
         condition: service_healthy
+      inventory-service:
+        condition: service_started
+    env_file:
+      - .secrets/dev/.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/order_db
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
+      SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
+      INVENTORY_SERVICE_GRPC_HOST: inventory-service
+      INVENTORY_SERVICE_GRPC_PORT: 9090
+
+    networks:
+      - e-commerce-project
 
   notification-service:
     build:
@@ -214,9 +264,15 @@ services:
         condition: service_healthy
       redpanda-kafka:
         condition: service_healthy
+    networks:
+      - e-commerce-project
 
 volumes:
   postgres_data:
   mongo_data:
   redis_data:
   redpanda_data:
+
+networks:
+  e-commerce-project:
+    driver: "bridge"

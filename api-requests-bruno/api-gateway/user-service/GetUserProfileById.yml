@@ -8,11 +8,11 @@ http:
   url: "{{api-gateway}}/api/v1/users/:profileId"
   params:
     - name: profileId
-      value: bb7aee02-c47b-42fd-bd8f-624331b46186
+      value: eb63418e-d9b0-403a-9885-38ba26617550
       type: path
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiYmI3YWVlMDItYzQ3Yi00MmZkLWJkOGYtNjI0MzMxYjQ2MTg2Iiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkxNTM5Nzc4LCJleHAiOjE3OTE1NDA2Nzh9.98xu2_WBN5djvLtiFlFhWzAzoWN-HU9Fr_zobXHwGe4
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiZWI2MzQxOGUtZDliMC00MDNhLTk4ODUtMzhiYTI2NjE3NTUwIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkyMzU1NjkxLCJleHAiOjE3OTIzNTY1OTF9.8jVIpSnuLTiNS_xRWH5sRriRXCNp6Z7DfClq4MAYsdc
 
 settings:
   encodeUrl: true

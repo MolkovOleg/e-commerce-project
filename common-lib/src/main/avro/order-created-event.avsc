@@ -1,0 +1,57 @@
+{
+  "type": "record",
+  "name": "OrderCreatedEvent",
+  "namespace": "com.ecommerce.common.event",
+  "doc": "Событие создания и первичного резервирования заказа в order-service",
+  "fields": [
+    {
+      "name": "eventId",
+      "type": "string",
+      "doc": "Уникальный ID события (UUID) для идемпотентности"
+    },
+    {
+      "name": "orderId",
+      "type": "string",
+      "doc": "Уникальный идентификатор заказа (UUID)"
+    },
+    {
+      "name": "userId",
+      "type": "string",
+      "doc": "Идентификатор пользователя (UUID)"
+    },
+    {
+      "name": "totalAmount",
+      "type": "string",
+      "doc": "Итоговая сумма заказа в формате строки (BigDecimal)"
+    },
+    {
+      "name": "items",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "OrderItemAvro",
+          "fields": [
+            {"name": "stockId", "type": "string"},
+            {"name": "quantity", "type": "int"},
+            {"name": "price", "type": "string"}
+          ]
+        },
+        "doc": "Список позиций в заказе"
+      }
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "doc": "Текущий статус заказа"
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Временная метка создания заказа"
+    }
+  ]
+}

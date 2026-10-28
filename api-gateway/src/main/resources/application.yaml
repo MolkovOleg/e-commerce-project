@@ -37,6 +37,19 @@ spring:
           predicates:
             - Path=/api/v1/products/**
 
+        # inventory-service роутинг
+        - id: inventory-service
+          uri: ${INVENTORY_SERVICE_URL:http://127.0.0.1:8085}
+          predicates:
+            - Path=/api/v1/inventory/**
+
+        # order-service роутинг
+        - id: order-service
+          uri: ${ORDER_SERVICE_URL:http://127.0.0.1:8086}
+          predicates:
+            - Path=/api/v1/orders/**
+
+
 jwt:
   secret-key: ${JWT_SECRET_KEY:kgy0iUhUm9BkRXwFrw8ksMpP5TmT3tE/o92K2Kjj6ys=}
 

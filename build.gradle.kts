@@ -5,6 +5,7 @@ plugins {
     java
     alias(libs.plugins.spring.boot) apply false
     alias(libs.plugins.avro) apply false
+    alias(libs.plugins.protobuf) apply false
 }
 
 allprojects {
