@@ -120,6 +120,8 @@ services:
         condition: service_started
       inventory-service:
         condition: service_started
+      order-service:
+        condition: service_started
     env_file:
       - .secrets/dev/.env
     environment:
@@ -128,6 +130,7 @@ services:
       USER_SERVICE_URL: http://user-service:8083
       PRODUCT_SERVICE_URL: http://product-service:8084
       INVENTORY_SERVICE_URL: http://inventory-service:8085
+      ORDER_SERVICE_URL: http://order-service:8086
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     networks:
       - e-commerce-project
@@ -221,7 +224,6 @@ services:
     networks:
       - e-commerce-project
 
-
   order-service:
     build:
       context: ./order-service
@@ -234,6 +236,19 @@ services:
         condition: service_healthy
       redpanda-kafka:
         condition: service_healthy
+      inventory-service:
+        condition: service_started
+    env_file:
+      - .secrets/dev/.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/order_db
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
+      SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
+      INVENTORY_SERVICE_GRPC_HOST: inventory-service
+      INVENTORY_SERVICE_GRPC_PORT: 9090
+
     networks:
       - e-commerce-project
 

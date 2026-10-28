@@ -1,0 +1,22 @@
+info:
+  name: GetOrderById
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{api-gateway}}/api/v1/orders/:ordersId"
+  params:
+    - name: ordersId
+      value: 0eb77ead-b392-46b8-82bd-117e70c59dfc
+      type: path
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiMWVhNGNhODctYjZlMS00NmI3LTk4Y2YtOTA5NWE4MzlhODMwIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkzMTk5NzA5LCJleHAiOjE3OTMyMDA2MDl9.nCUhsjo_UGdMY6Ba4l4OKjynHM64Wre78bpdnWLF3fs
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

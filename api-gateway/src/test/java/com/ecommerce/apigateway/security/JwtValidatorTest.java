@@ -28,7 +28,7 @@ class JwtValidatorTest {
 
     @Test
     @DisplayName("Валидный токен возвращает true")
-    void testValidToken_Returns_True() {
+    void testValidTokenReturnsTrue() {
         String token = Jwts.builder()
                 .subject("test-user")
                 .claim("userId", "12345")
@@ -42,7 +42,7 @@ class JwtValidatorTest {
 
     @Test
     @DisplayName("Истекший токен возвращает false")
-    void testExpiredToken_Returns_False() {
+    void testExpiredTokenReturnsFalse() {
         String token = Jwts.builder()
                 .subject("test-user")
                 .claim("userId", "12345")

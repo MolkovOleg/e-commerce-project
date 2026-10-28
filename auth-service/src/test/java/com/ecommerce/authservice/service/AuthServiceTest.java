@@ -67,7 +67,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("Успешная регистрация пользователя")
-    void testRegister_Successful_AuthResponse() {
+    void testRegisterSuccessfulAuthResponse() {
         RegisterRequest request = new RegisterRequest(
                 "test@example.com",
                 "Password123!");
@@ -102,7 +102,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("Регистрация с существующим email выбрасывает исключение")
-    void testRegister_EmailAlreadyExists_ThrowsException() {
+    void testRegisterEmailAlreadyExistsThrowsException() {
         RegisterRequest request = new RegisterRequest(
                 "existing@example.com",
                 "Password123!");
@@ -116,7 +116,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("Успешный вход (login)")
-    void testLogin_Successful_AuthResponse() {
+    void testLoginSuccessfulAuthResponse() {
         LoginRequest request = new LoginRequest(
                 "test@example.com",
                 "Password123!");
@@ -142,7 +142,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("Вход с неверным паролем выбрасывает исключение")
-    void testLogin_BadCredentials_ThrowsException() {
+    void testLoginBadCredentialsThrowsException() {
         LoginRequest request = new LoginRequest(
                 "test@example.com",
                 "WrongPassword");
@@ -156,7 +156,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("Успешное обновление токена")
-    void testRefreshToken_Successful() {
+    void testRefreshTokenSuccessful() {
         UUID userId = UUID.randomUUID();
 
         User user = User.builder()
@@ -189,7 +189,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("Обновление отозванного или просроченного токена выбрасывает исключение")
-    void testRefreshToken_RevokedOrExpired_ThrowsException() {
+    void testRefreshTokenRevokedOrExpiredThrowsException() {
         RefreshToken revokedToken = RefreshToken.builder()
                 .tokenHash("revoked_token")
                 .expiresAt(Instant.now().plusSeconds(3600))

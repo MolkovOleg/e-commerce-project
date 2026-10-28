@@ -43,7 +43,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Успешное создание продукта")
-    void testCreateProduct_Successful_ReturnsProductResponse() {
+    void testCreateProductSuccessfulReturnsProductResponse() {
         ProductCreateRequest request = new ProductCreateRequest(
                 "MacBook Pro 16",
                 "Apple Silicon M3 Max",
@@ -79,7 +79,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Поиск продукта по ID: продукт существует")
-    void testGetProductById_Exists_ReturnsProductResponse() {
+    void testGetProductByIdExistsReturnsProductResponse() {
         Product product = Product.builder()
                 .id("prod-123")
                 .name("iPhone 15")
@@ -101,7 +101,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Поиск продукта по несуществующему ID: NoSuchElementException")
-    void testGetProductById_NotFound_ReturnsNoSuchElementException() {
+    void testGetProductByIdNotFoundReturnsNoSuchElementException() {
         when(productRepository.findById("unknown-id")).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> productService.getProductById("unknown-id"))
@@ -112,7 +112,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Изменение карточки продукта")
-    void testUpdateProduct_Successful_ReturnsProductResponse() {
+    void testUpdateProductSuccessfulReturnsProductResponse() {
         Product product = Product.builder()
                 .id("prod-123")
                 .name("iPhone 15")
@@ -151,7 +151,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Изменение статуса продукта")
-    void testChangeStatus_Successful_ReturnsProductResponse() {
+    void testChangeStatusSuccessfulReturnsProductResponse() {
         Product product = Product.builder()
                 .id("prod-123")
                 .name("iPhone 15")
@@ -172,7 +172,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Удаление товара по ID")
-    void testDeleteProductById_Successful() {
+    void testDeleteProductByIdSuccessful() {
         Product product = Product.builder()
                 .id("prod-123")
                 .name("iPhone 15")
@@ -193,7 +193,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Получение каталога товаров с фильтрацией по категории и цене")
-    void testGetPublicCatalog_WithFilters_ReturnsFilteredProducts() {
+    void testGetPublicCatalogWithFiltersReturnsFilteredProducts() {
         Product product = Product.builder()
                 .id("prod-1")
                 .name("iPhone 15")
@@ -227,7 +227,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Получение каталога товаров без фильтрации")
-    void testGetPublicCatalog_WithoutFilters_ReturnsAllPublishedProducts() {
+    void testGetPublicCatalogWithoutFiltersReturnsAllPublishedProducts() {
         Product product = Product.builder()
                 .id("prod-2")
                 .name("MacBook Pro 16")
@@ -251,7 +251,7 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("Полнотекстовый поиск товаров по слову или тексту")
-    void testSearchProductsByText_Successful() {
+    void testSearchProductsByTextSuccessful() {
         Product product = Product.builder()
                 .id("prod-3")
                 .name("iPhone 15 Pro Max")
