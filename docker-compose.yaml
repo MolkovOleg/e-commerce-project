@@ -122,6 +122,8 @@ services:
         condition: service_started
       order-service:
         condition: service_started
+      notification-service:
+        condition: service_started
     env_file:
       - .secrets/dev/.env
     environment:
@@ -131,6 +133,7 @@ services:
       PRODUCT_SERVICE_URL: http://product-service:8084
       INVENTORY_SERVICE_URL: http://inventory-service:8085
       ORDER_SERVICE_URL: http://order-service:8086
+      NOTIFICATION_SERVICE_URL: http://notification-service:8087
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     networks:
       - e-commerce-project
@@ -262,8 +265,17 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+      redis:
+        condition: service_healthy
       redpanda-kafka:
         condition: service_healthy
+    env_file:
+      - .secrets/dev/.env
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/notification_db?authSource=admin
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: redpanda-kafka:9092
+      SCHEMA_REGISTRY_URL: http://redpanda-kafka:8081
     networks:
       - e-commerce-project
 
