@@ -12,15 +12,15 @@ http:
         {
           "items": [
             {
-              "stockId": "SKU-100",
+              "stockId": "SKU-001",
               "quantity": 10,
-              "price": 150.00
+              "price": 1500.00
             }
           ]
         }
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiMWVhNGNhODctYjZlMS00NmI3LTk4Y2YtOTA5NWE4MzlhODMwIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkzMTk4NzQ5LCJleHAiOjE3OTMxOTk2NDl9.BidrM-EzInnUdDNf5Wg4O70jmNztGXTvuTG0WMM4A7M
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiNDY0NTA5MWUtZjIyNS00Y2U4LTk4MDctOTQ0ZmJjZWMyNzliIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkzNjE5MTc5LCJleHAiOjE3OTM2MjAwNzl9.KjV2zhULyPmNGhFAtXL42MzWv6FAtoAZUg0wUlo0CpE
 
 settings:
   encodeUrl: true
