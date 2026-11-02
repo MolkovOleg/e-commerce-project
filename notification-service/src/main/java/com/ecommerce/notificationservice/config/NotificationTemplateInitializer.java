@@ -17,7 +17,7 @@ public class NotificationTemplateInitializer implements CommandLineRunner {
     private final NotificationTemplateRepository templateRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         loadTemplateIfMissing(
                 NotificationType.ORDER_CREATED,
                 NotificationChannel.EMAIL,
