@@ -13,7 +13,14 @@ dependencies {
     implementation(libs.flyway.database.postgresql)
     runtimeOnly(libs.postgresql)
 
+    // gRPC
     implementation(libs.grpc.server.spring.boot.starter)
 
+    // Redis
     implementation(libs.spring.boot.starter.data.redis)
+
+    // Testcontainers
+    testImplementation(libs.spring.boot.testcontainers)
+    testImplementation(libs.testcontainers.junit.jupiter)
+    testImplementation(libs.testcontainers.postgresql)
 }

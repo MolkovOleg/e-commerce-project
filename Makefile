@@ -30,16 +30,16 @@ dev-infra:
 
 dev-down:
 	@echo "Остановка инфраструктуры..."
-	docker compose down
+	docker compose --env-file .secrets/dev/.env down
 
 dev-clean:
-	docker compose down -v
+	docker compose --env-file .secrets/dev/.env down -v
 	@echo "Все тома и базы данных очищены"
 
 dev-restart: dev-down dev-up
 
 dev-logs:
-	docker compose logs -f
+	docker compose --env-file .secrets/dev/.env logs -f
 
 build:
 	./gradlew build

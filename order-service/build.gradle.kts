@@ -16,5 +16,10 @@ dependencies {
 
     implementation(libs.grpc.client.spring.boot.starter)
 
+    // Testcontainers
+    testImplementation(libs.spring.boot.testcontainers)
+    testImplementation(libs.testcontainers.junit.jupiter)
+    testImplementation(libs.testcontainers.postgresql)
+
     testImplementation(libs.spring.boot.starter.test)
 }
