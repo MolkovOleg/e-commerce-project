@@ -10,7 +10,7 @@ http:
     type: json
     data: |-
       {
-        "stockId": "SKU-100",
+        "stockId": "SKU-001",
         "quantity": 100
       }
   auth: inherit

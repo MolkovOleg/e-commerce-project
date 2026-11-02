@@ -8,11 +8,11 @@ http:
   url: "{{api-gateway}}/api/v1/orders/:orderId/cancel"
   params:
     - name: orderId
-      value: 0eb77ead-b392-46b8-82bd-117e70c59dfc
+      value: 7d1c1328-2ec6-4123-a6cf-7e10c2d1bb28
       type: path
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiMWVhNGNhODctYjZlMS00NmI3LTk4Y2YtOTA5NWE4MzlhODMwIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkzMTk5NzA5LCJleHAiOjE3OTMyMDA2MDl9.nCUhsjo_UGdMY6Ba4l4OKjynHM64Wre78bpdnWLF3fs
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiNDY0NTA5MWUtZjIyNS00Y2U4LTk4MDctOTQ0ZmJjZWMyNzliIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkzNjE5MTc5LCJleHAiOjE3OTM2MjAwNzl9.KjV2zhULyPmNGhFAtXL42MzWv6FAtoAZUg0wUlo0CpE
 
 settings:
   encodeUrl: true

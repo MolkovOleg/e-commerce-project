@@ -1,0 +1,18 @@
+info:
+  name: GetUserNotifications
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{api-gateway}}/api/v1/notifications"
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcklkIjoiNDY0NTA5MWUtZjIyNS00Y2U4LTk4MDctOTQ0ZmJjZWMyNzliIiwic3ViIjoib2xlZ0BlY29tbWVyY2UuY29tIiwiaWF0IjoxNzkzNjE5MTc5LCJleHAiOjE3OTM2MjAwNzl9.KjV2zhULyPmNGhFAtXL42MzWv6FAtoAZUg0wUlo0CpE
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
