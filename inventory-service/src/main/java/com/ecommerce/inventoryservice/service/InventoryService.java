@@ -69,7 +69,7 @@ public class InventoryService {
                     .orElse(null);
             if (ii == null || !ii.isAvailable(item.getQuantity())) {
                 log.warn("No such item with stockId={} or not enough items for reservation, only quantity={}",
-                        item.getStockId(), item.getQuantity());
+                        item.getStockId(), ii != null ? ii.getQuantity() : 0);
                 return false;
             }
         }
