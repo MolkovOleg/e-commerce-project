@@ -42,7 +42,7 @@ public class InventoryService {
 
         InventoryItem savedItem = inventoryRepository.save(item);
         log.info("Success replenish items with stockId={} quantity={} and total quantity={}",
-                request.stockId(), request.quantity(), savedItem.getQuantity());
+                request.stockId(), request.quantity(), savedItem.getAvailableQuantity());
         return mapToResponse(savedItem);
     }
 
@@ -62,7 +62,7 @@ public class InventoryService {
      */
     @Transactional
     public boolean reserveStock(String orderId, List<StockItem> items) {
-        log.info("Trying to reserve items with orderId={}, itemsCount={}", orderId,  items.size());
+        log.info("Trying to reserve items with orderId={}, itemsCount={}", orderId, items.size());
 
         for (StockItem item : items) {
             InventoryItem ii = inventoryRepository.findByStockIdWithLock(item.getStockId())
@@ -115,7 +115,7 @@ public class InventoryService {
             stockReservationRepository.save(reservation);
         }
 
-        log.info("Release {} items with orderId={}", reservations.size(), orderId);
+        log.info("Success releasing {} items with orderId={}", reservations.size(), orderId);
     }
 
     private InventoryResponse mapToResponse(InventoryItem item) {

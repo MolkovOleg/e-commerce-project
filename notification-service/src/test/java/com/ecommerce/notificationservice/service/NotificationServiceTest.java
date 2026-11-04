@@ -36,7 +36,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class NotificationServiceTest {
+class NotificationServiceTest {
 
     @Mock
     private NotificationLogRepository logRepository;
@@ -91,7 +91,7 @@ public class NotificationServiceTest {
         List<NotificationLog> savedLogs = logCaptor.getAllValues();
         assertThat(savedLogs).hasSize(2);
 
-        NotificationLog emailLog = savedLogs.get(0);
+        NotificationLog emailLog = savedLogs.getFirst();
         assertThat(emailLog.getChannel()).isEqualTo(NotificationChannel.EMAIL);
         assertThat(emailLog.getStatus()).isEqualTo(NotificationStatus.SENT);
         assertThat(emailLog.getSubject()).isEqualTo("Order #order-100");
@@ -224,14 +224,14 @@ public class NotificationServiceTest {
                 .status(NotificationStatus.SENT)
                 .build();
 
-        Page<NotificationLog> logPage = new PageImpl<>(List.of(logEntry),  pageable, 1);
+        Page<NotificationLog> logPage = new PageImpl<>(List.of(logEntry), pageable, 1);
         when(logRepository.findAllByUserId("user-300", pageable)).thenReturn(logPage);
 
         Page<NotificationResponse> result = notificationService.getUserNotifications("user-300", pageable);
 
         assertThat(result.getTotalPages()).isEqualTo(1);
-        assertThat(result.getContent().get(0).id()).isEqualTo("log-1");
-        assertThat(result.getContent().get(0).status()).isEqualTo(NotificationStatus.SENT);
+        assertThat(result.getContent().getFirst().id()).isEqualTo("log-1");
+        assertThat(result.getContent().getFirst().status()).isEqualTo(NotificationStatus.SENT);
     }
 }
 

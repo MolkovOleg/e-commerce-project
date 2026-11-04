@@ -206,11 +206,11 @@ class ProductServiceTest {
         Page<Product> page = new PageImpl<>(List.of(product), pageable, 1);
 
         when(productRepository.findByStatusAndCategoryAndPriceBetween(
-                eq(ProductStatus.PUBLISHED),
-                eq("Smartphones"),
-                eq(BigDecimal.valueOf(500.0)),
-                eq(BigDecimal.valueOf(1500.0)),
-                eq(pageable)
+                ProductStatus.PUBLISHED,
+                "Smartphones",
+                BigDecimal.valueOf(500.0),
+                BigDecimal.valueOf(1500.0),
+                pageable
         )).thenReturn(page);
 
         Page<ProductResponse> result = productService.getPublicCatalog(
@@ -222,7 +222,7 @@ class ProductServiceTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getContent()).hasSize(1);
-        assertThat(result.getContent().get(0).name()).isEqualTo("iPhone 15");
+        assertThat(result.getContent().getFirst().name()).isEqualTo("iPhone 15");
     }
 
     @Test
@@ -246,7 +246,7 @@ class ProductServiceTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getContent()).hasSize(1);
-        assertThat(result.getContent().get(0).name()).isEqualTo("MacBook Pro 16");
+        assertThat(result.getContent().getFirst().name()).isEqualTo("MacBook Pro 16");
     }
 
     @Test
@@ -270,7 +270,7 @@ class ProductServiceTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getContent()).hasSize(1);
-        assertThat(result.getContent().get(0).name()).isEqualTo("iPhone 15 Pro Max");
+        assertThat(result.getContent().getFirst().name()).isEqualTo("iPhone 15 Pro Max");
 
         verify(productRepository).findAllBy(any(TextCriteria.class), eq(pageable));
     }
