@@ -77,7 +77,7 @@ public class NotificationService {
     }
 
     /**
-     * Получение истории уведоилений пользователя с пагинацией
+     * Получение истории уведомлений пользователя с пагинацией
      */
     public Page<NotificationResponse> getUserNotifications(String userId, Pageable pageable) {
         return logRepository.findAllByUserId(userId, pageable)
