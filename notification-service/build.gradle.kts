@@ -14,4 +14,9 @@ dependencies {
 
     // Redis
     implementation(libs.spring.boot.starter.data.redis)
+
+    // Testcontainers
+    testImplementation(libs.spring.boot.testcontainers)
+    testImplementation(libs.testcontainers.junit.jupiter)
+    testImplementation(libs.testcontainers.mongodb)
 }

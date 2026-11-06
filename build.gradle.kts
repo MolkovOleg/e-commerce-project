@@ -1,6 +1,3 @@
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.testing.jacoco.tasks.JacocoReport
-
 plugins {
     java
     alias(libs.plugins.spring.boot) apply false
@@ -57,22 +54,22 @@ subprojects {
 
         // Подключение BOM
         implementation(bom)
+
         annotationProcessor(bom)
-        testAnnotationProcessor(bom)
-
-        // Lombok
-        compileOnly("org.projectlombok:lombok")
         annotationProcessor("org.projectlombok:lombok")
-        testCompileOnly("org.projectlombok:lombok")
-        testAnnotationProcessor("org.projectlombok:lombok")
 
-        // Тесты
+        compileOnly("org.projectlombok:lombok")
+        
+        testAnnotationProcessor(bom)
+        testAnnotationProcessor("org.projectlombok:lombok")
+        testCompileOnly("org.projectlombok:lombok")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
     // Запуск unit тестов
     tasks.withType<Test> {
         useJUnitPlatform()
+        environment("DOCKER_API_VERSION", "1.44")
         finalizedBy(tasks.withType<JacocoReport>())
     }
 
@@ -96,7 +93,7 @@ subprojects {
             classDirectories.setFrom(
                 files(classDirectories.files.map {
                     project.fileTree(it) {
-                        exclude (jacocoExclusions)
+                        exclude(jacocoExclusions)
                     }
                 })
             )
